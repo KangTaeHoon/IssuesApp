@@ -10,9 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class LoginViewController: UIViewController,
+class LoginViewController: UIViewController, ViewControllerFromStoryBoard {
     
-ViewControllerFromStoryBoard {
     @IBOutlet weak var loginButton: UIButton!
     var disposeBag: DisposeBag = DisposeBag()
     

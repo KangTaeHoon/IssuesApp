@@ -10,7 +10,7 @@ import UIKit
 
 protocol ViewControllerFromStoryBoard {}
 
-//자기 자신을 생성한다.
+//자기 자신을 생성한다. Self = UIViewController type.
 extension ViewControllerFromStoryBoard where Self: UIViewController {
   static var viewController: Self {
     guard let viewController = UIStoryboard(name: "Main", bundle: nil)

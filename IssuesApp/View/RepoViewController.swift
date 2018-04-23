@@ -50,20 +50,21 @@ extension RepoViewController {
             return (owner, repo)
         }
         
-        let enterButtonObservable: Observable<(String, String)> = enterButton.rx.tap.withLatestFrom(textTupleObservable).share()
+        let enterButtonObservable: Observable<(String, String)> = enterButton.rx.tap.withLatestFrom(textTupleObservable).debug().share()
         
         enterButtonObservable.filter { (owner, _) -> Bool in
             owner.isEmpty
-            }.flatMap { [weak self] (_) -> Observable<Void> in
+            }.flatMap { [weak self] _ -> Observable<Void> in
                 App.showAlert(title: "Owner를 입력하지 않았습니다.",
                               message: "Owner를 입력해주세요.",
                               buttonTitle: "확인",
                               onView: self)
-        }.subscribe().disposed(by: disposeBag)
+            }.subscribe().disposed(by: disposeBag)
+
         
         enterButtonObservable.filter { (owner, repo) -> Bool in
             !owner.isEmpty && repo.isEmpty
-            }.flatMap { [weak self] (_) -> Observable<Void> in
+            }.flatMap { [weak self] _ -> Observable<Void> in
                 App.showAlert(title: "repo를 입력하지 않았습니다.",
                               message: "repo를 입력해주세요.",
                               buttonTitle: "확인",
@@ -80,6 +81,7 @@ extension RepoViewController {
                 self?.navigationController?.pushViewController(viewController, animated: true)
             }).disposed(by: disposeBag)
         
+        
         historyButton.rx.tap.flatMap{ [weak self] _ in
             return HistoryViewController.rx.create(parent: self)
             }.subscribe(onNext: { [weak self]  (repo) in
@@ -87,7 +89,6 @@ extension RepoViewController {
                 let viewController = IssuesViewController.viewController(owner: repo.owner, repo: repo.repo)
                 self?.navigationController?.pushViewController(viewController, animated: true)
         }).disposed(by: disposeBag)
-    
     }
 }
 
