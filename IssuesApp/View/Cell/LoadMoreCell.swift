@@ -12,6 +12,7 @@ import RxCocoa
 
 @IBDesignable
 class LoadMoreCell: UICollectionReusableView {
+    
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet var doneView: UIView!
     
@@ -49,3 +50,19 @@ extension LoadMoreCell {
         doneView.isHidden = load
     }
 }
+
+
+extension Reactive where Base: LoadMoreCell{
+    var load: Binder<Bool>{
+        return Binder(base) { (cell, load) in //자기자신, 불리언
+            cell.load(load)
+        }
+    }
+}
+
+
+
+
+
+
+

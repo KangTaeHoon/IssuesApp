@@ -9,7 +9,7 @@
 import UIKit
 import AlamofireImage
 
-final class CommentCell: UICollectionViewCell, CellType {
+final class CommentCell: UICollectionViewCell ,CellType {
   @IBOutlet var bodyLabel: UILabel!
   @IBOutlet var titleLabel: UILabel!
   @IBOutlet var profileImageView: UIImageView!
@@ -23,14 +23,14 @@ final class CommentCell: UICollectionViewCell, CellType {
 }
 
 extension CommentCell {
-  typealias Item = Model.Comment
-  func update(data comment: Model.Comment) {
-    if let url = comment.user.avatarURL {
-      profileImageView.af_setImage(withURL: url)
+    typealias Item = Model.Comment
+    func update(data comment: Model.Comment) {
+        if let url = comment.user.avatarURL {
+          profileImageView.af_setImage(withURL: url)
+        }
+
+        let createdAt = comment.createdAt?.string(dateFormat: "dd MM yyyy") ?? "-"
+        titleLabel.text = "\(comment.user.login) commented on \(createdAt)"
+        bodyLabel.text = comment.body
     }
-    
-    let createdAt = comment.createdAt?.string(dateFormat: "dd MM yyyy") ?? "-"
-    titleLabel.text = "\(comment.user.login) commented on \(createdAt)"
-    bodyLabel.text = comment.body
-  }
 }

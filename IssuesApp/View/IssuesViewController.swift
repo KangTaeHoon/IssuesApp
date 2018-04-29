@@ -11,19 +11,32 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-final class IssuesViewController: UIViewController, ViewControllerFromStoryBoard {
-    
+final class IssuesViewController: UIViewController, ViewControllerFromStoryBoard, LoadMoreViewControllerType {
+
     @IBOutlet weak var collectionView: UICollectionView!
     fileprivate var owner: String = ""
     fileprivate var repo: String = ""
-    fileprivate var disposeBag: DisposeBag = DisposeBag()
+    var disposeBag: DisposeBag = DisposeBag()
+    
     var estimateCell: IssueCell = IssueCell.cellFromNib
     var datasourceOut: BehaviorRelay<[Model.Issue]> = BehaviorRelay(value: []) //컬렉션뷰에 뿌리기 위한 값
+    var datasourceIn: PublishSubject<((String, String)) -> Observable<[Model.Issue]>> = PublishSubject()
+    var refreshControl = UIRefreshControl()
+    var nextPageID: BehaviorRelay<Int> = BehaviorRelay(value: 1)
+    var canLoadMore: BehaviorRelay<Bool> = BehaviorRelay(value: true) //처음에는 더 부를수 있는 상태여야하니까 트루
+    var isLoading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    var loadMoreCell: LoadMoreCell? //처음엔 없음
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "\(owner)/\(repo)"
         collectionView.register(UINib(nibName: "IssueCell", bundle: nil), forCellWithReuseIdentifier: "IssueCell")
+        
+        if #available(iOS 10.0, *) {
+            collectionView.refreshControl = refreshControl
+        } else {
+            // Fallback on earlier versions
+        }
         bind()
     }
   
@@ -33,46 +46,56 @@ final class IssuesViewController: UIViewController, ViewControllerFromStoryBoard
         viewController.repo = repo
         return viewController
     }
+    
+    func apiCall(api: ((String, String)) -> Observable<[Model.Issue]>) -> Observable<[Model.Issue]> {
+        return api((owner, repo))
+    }
+    
+    func headerView(collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? {
+        return nil
+    }
 }
+
+
 
 extension IssuesViewController {
     func bind() {
-        App.api.repoIssues(owner: owner, repo: repo).bind(to: datasourceOut).disposed(by: disposeBag)
-            
-        datasourceOut
-            .bind(to: collectionView.rx.items(cellIdentifier: "IssueCell", cellType: IssueCell.self)) { (index, issue, cell) in
-            cell.update(data: issue)
-        }.disposed(by: disposeBag)
-        
+
+        datasourceInBind()
+        nextPageIDBind(api: App.api.repoIssues)
+        datasourceOutBindtoCollectionView()
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        register(refreshControl: refreshControl)
+        registerLoadMore(collectionView: collectionView)
+        
+        canLoadMore.subscribe(onNext: { [weak self] can in
+            self?.loadMoreCell?.load(can)
+        }).disposed(by: disposeBag)
+//        canLoadMore.bind(to: loadMoreCell.rx.load) 옵셔널인 경우는 이게안됨.
+        
+        collectionView.rx.itemSelected.asObservable().subscribe(onNext: { [weak self] indexPath in
+            guard let `self` = self else { return }
+            let issue = self.datasourceOut.value[indexPath.item]
+            let viewController = CommentsViewController.viewController(owner: self.owner, repo: self.repo, issue: issue)
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }).disposed(by: disposeBag)
     }
 }
+
 
 extension IssuesViewController : UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let issues = datasourceOut.value
-        let issue = issues[indexPath.item]
-        estimateCell.update(data: issue)
-        let targetSize = CGSize(width: collectionView.frame.size.width, height: 50)
-        let estimatedSize = estimateCell.contentView.systemLayoutSizeFitting(targetSize,
-                                                                             withHorizontalFittingPriority: .required,
-                                                                             verticalFittingPriority: .defaultLow) //모른다고함.. 그냥 쓰라함
-        return estimatedSize
+        return sizeForItem(indexPath: indexPath, collectionView: collectionView)
     }
 }
 
-extension IssuesViewController {
 
-  func register(refreshControl: UIRefreshControl) {
-    
-   
-  }
-  
-  func registerLoadMore(collectionView: UICollectionView) {
-    
-    
-  }
-}
+
+
+
+
+
+
+
 

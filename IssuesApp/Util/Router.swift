@@ -13,6 +13,8 @@ import RxAlamofire
 
 enum Router {
     case repoIssues(owner: String, repo: String)
+    case issueComments(owner: String, repo: String, number: Int)
+    case editIssue(owner: String, repo: String, number: Int)
 }
 
 extension Router {
@@ -23,6 +25,10 @@ extension Router {
         switch self {
         case let .repoIssues(owner, repo):
             return "/repos/\(owner)/\(repo)/issues"
+        case .issueComments(let owner, let repo, let number):
+            return "/repos/\(owner)/\(repo)/issues/\(number)/comments"
+        case .editIssue(let owner, let repo, let number):
+            return "/repos/\(owner)/\(repo)/issues/\(number)"
         }
     }
     
@@ -33,15 +39,19 @@ extension Router {
     
     var method: HTTPMethod{
         switch self {
-        case .repoIssues:
+        case .repoIssues, .issueComments:
             return .get
+        case .editIssue:
+            return .patch
         }
     }
     
     var parameterEncoding: ParameterEncoding{
         switch self {
-        case .repoIssues:
+        case .repoIssues, .issueComments:
             return URLEncoding.default
+        case .editIssue:
+            return JSONEncoding.default
         }
     }
     
@@ -69,8 +79,8 @@ extension Router {
     
     static let manager: Alamofire.SessionManager = {
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 10 // seconds
-        configuration.timeoutIntervalForResource = 10
+        configuration.timeoutIntervalForRequest = 20 // seconds
+        configuration.timeoutIntervalForResource = 20
         configuration.httpCookieStorage = HTTPCookieStorage.shared
         configuration.urlCache = URLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
         let manager = Alamofire.SessionManager(configuration: configuration)

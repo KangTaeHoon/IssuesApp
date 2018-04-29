@@ -78,3 +78,24 @@ extension Model.Issue.State {
     }
 }
 
+extension Model {
+    struct Comment: Codable, Equatable {
+        static func == (lhs: Model.Comment, rhs: Model.Comment) -> Bool {
+            return lhs.id == rhs.id
+        }
+        
+        let id: Int
+        let user: Model.User
+        let body: String
+        let createdAt: Date?
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case user
+        case body
+        case createdAt = "created_at"
+    }
+}
+
+

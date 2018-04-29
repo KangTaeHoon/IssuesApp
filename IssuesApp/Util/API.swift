@@ -42,7 +42,6 @@ struct API {
                                         let refreshToken = credential.oauthRefreshToken
                                         observer.onNext((oathToken, refreshToken)) //한 번만 전달되면 되니까 바로 컴플릿.
                                         observer.onCompleted()
-                                        
             },
                                        failure: { (error) in
                                         observer.onError(error)
@@ -51,15 +50,47 @@ struct API {
         }
     }
     
-    func repoIssues(owner: String, repo: String) -> Observable<[Model.Issue]> {
+    func repoIssues(pageID: Int) -> ((String, String)) -> Observable<[Model.Issue]> {
         
-        let parameters: Parameters = ["page": 0, "state": "all"]
-        return Router.repoIssues(owner: owner, repo: repo)
-            .buildRequest(parameters: parameters)
-            .map { (data) -> [Model.Issue] in
-                let issues = (try? self.decoder.decode([Model.Issue].self, from: data)) ?? []
-                return issues
+        return { (arg) in
+            let (owner, repo) = arg
+            let parameters: Parameters = ["page": pageID, "state": "all"]
+            
+            return Router.repoIssues(owner: owner, repo: repo)
+                .buildRequest(parameters: parameters)
+                .map { (data) -> [Model.Issue] in
+                    let issues = (try? self.decoder.decode([Model.Issue].self, from: data)) ?? []
+                    return issues
             }
+        }
     }
+    
+    func issueComments(pageID: Int) -> ((String, String, Int)) -> Observable<[Model.Comment]> {
+        
+        return { (arg0) -> Observable<[Model.Comment]> in
+            
+            let (owner, repo, number) = arg0
+            let parameter = ["page": pageID]
+            
+            return Router.issueComments(owner: owner, repo: repo, number: number)
+            .buildRequest(parameters: parameter)
+            .map{ (data) -> [Model.Comment] in
+                guard let comments = try? self.decoder.decode([Model.Comment].self, from: data) else { return [] }
+                return comments
+            }
+        }
+    }
+    
+    func editIssue(owner: String, repo: String, issue: Model.Issue) -> Observable<Model.Issue>{
+        guard let issueDict = try? issue.asDictionary() else {return Observable.empty()}
+        return Router.editIssue(owner: owner, repo: repo, number: issue.number).buildRequest(parameters: issueDict)
+            .flatMap{ (data) -> Observable<Model.Issue> in
+                guard let issue  = try? self.decoder.decode(Model.Issue.self, from: data) else {
+                    return Observable.error(RxError.noElements)
+                }
+        return Observable.just(issue)
+        }
+    }
+
  
 }

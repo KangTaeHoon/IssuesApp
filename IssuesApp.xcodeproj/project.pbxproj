@@ -36,6 +36,9 @@
 		068894F920942CCD00E7966E /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 068894F520942CCD00E7966E /* CommentCell.xib */; };
 		068894FC20942CD600E7966E /* Encodable+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068894FA20942CD600E7966E /* Encodable+extension.swift */; };
 		068894FD20942CD600E7966E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068894FB20942CD600E7966E /* UIColor+Extension.swift */; };
+		06C51F8E209454DB0026B8F4 /* CellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C51F8D209454DB0026B8F4 /* CellType.swift */; };
+		06C51F90209455C30026B8F4 /* LoadMoreViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C51F8F209455C30026B8F4 /* LoadMoreViewControllerType.swift */; };
+		06C51F92209468990026B8F4 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C51F91209468990026B8F4 /* CommentsViewController.swift */; };
 		43F0EB409C91EF1F703E4B47 /* Pods_IssuesAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5AFCAB72E900C60DEC8B84D /* Pods_IssuesAppTests.framework */; };
 		D3E42E12C039FFE2CE7DDD85 /* Pods_IssuesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C602CD965C8B945E28CA0F /* Pods_IssuesApp.framework */; };
 		EAEEFDBEAC118589D2142480 /* Pods_IssuesAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447FC08DA918943974C83AE3 /* Pods_IssuesAppUITests.framework */; };
@@ -94,6 +97,9 @@
 		068894F520942CCD00E7966E /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		068894FA20942CD600E7966E /* Encodable+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Encodable+extension.swift"; sourceTree = "<group>"; };
 		068894FB20942CD600E7966E /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		06C51F8D209454DB0026B8F4 /* CellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellType.swift; sourceTree = "<group>"; };
+		06C51F8F209455C30026B8F4 /* LoadMoreViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreViewControllerType.swift; sourceTree = "<group>"; };
+		06C51F91209468990026B8F4 /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		447FC08DA918943974C83AE3 /* Pods_IssuesAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IssuesAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D70C1378F1F2673C5BEE88F /* Pods-IssuesAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssuesAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IssuesAppTests/Pods-IssuesAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6109B73B3D4CE7DF73A36A56 /* Pods-IssuesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssuesApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IssuesApp/Pods-IssuesApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -195,6 +201,8 @@
 				068736A2208B7FD900DBE40D /* Cell */,
 				068736AE208B7FF100DBE40D /* HistoryViewController.swift */,
 				068736AC208B7FF100DBE40D /* IssuesViewController.swift */,
+				06C51F91209468990026B8F4 /* CommentsViewController.swift */,
+				06C51F8F209455C30026B8F4 /* LoadMoreViewControllerType.swift */,
 				068736AD208B7FF100DBE40D /* LoginViewController.swift */,
 				068736AB208B7FF000DBE40D /* RepoViewController.swift */,
 			);
@@ -205,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				068736A3208B7FE700DBE40D /* IssueCell.swift */,
+				06C51F8D209454DB0026B8F4 /* CellType.swift */,
 				068736A4208B7FE700DBE40D /* IssueCell.xib */,
 				068736A5208B7FE700DBE40D /* LoadMoreCell.swift */,
 				068736A6208B7FE700DBE40D /* LoadMoreCell.xib */,
@@ -505,6 +514,7 @@
 				068736BF208B803800DBE40D /* App.swift in Sources */,
 				068736B5208B801500DBE40D /* Model.swift in Sources */,
 				068736B1208B7FF100DBE40D /* LoginViewController.swift in Sources */,
+				06C51F8E209454DB0026B8F4 /* CellType.swift in Sources */,
 				068736B0208B7FF100DBE40D /* IssuesViewController.swift in Sources */,
 				068736A9208B7FE700DBE40D /* LoadMoreCell.swift in Sources */,
 				068894F820942CCD00E7966E /* CommentHeaderCell.swift in Sources */,
@@ -512,7 +522,9 @@
 				06873676208B7F3200DBE40D /* ViewController.swift in Sources */,
 				068736BD208B803800DBE40D /* PreferenceManager.swift in Sources */,
 				068894F620942CCD00E7966E /* CommentCell.swift in Sources */,
+				06C51F90209455C30026B8F4 /* LoadMoreViewControllerType.swift in Sources */,
 				068736BC208B803800DBE40D /* ViewControlelrFromStoryBoard.swift in Sources */,
+				06C51F92209468990026B8F4 /* CommentsViewController.swift in Sources */,
 				06873674208B7F3200DBE40D /* AppDelegate.swift in Sources */,
 				068736AF208B7FF100DBE40D /* RepoViewController.swift in Sources */,
 				068736C0208B803800DBE40D /* Router.swift in Sources */,
@@ -697,7 +709,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V53Z7HF8ZQ;
 				INFOPLIST_FILE = IssuesApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -717,7 +729,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V53Z7HF8ZQ;
 				INFOPLIST_FILE = IssuesApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

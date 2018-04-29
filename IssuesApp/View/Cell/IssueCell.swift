@@ -8,7 +8,8 @@
 
 import UIKit
 
-class IssueCell: UICollectionViewCell {
+//final 붙이는 이유:  associatedtype타입을 쓰면 클래스에서 상속이안됨, Self도..
+final class IssueCell: UICollectionViewCell, CellType {
     @IBOutlet var stateButton: UIButton!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var contentLabel: UILabel!
@@ -25,15 +26,5 @@ extension IssueCell {
         stateButton.isSelected = issue.state == .closed
         let commentCountHidden: Bool = issue.comments == 0
         commentCountButton.isHidden = commentCountHidden
-    }
-    
-    static var cellFromNib: IssueCell {
-        guard let cell = Bundle.main
-              .loadNibNamed(String(describing: IssueCell.self),
-                            owner: nil,
-                            options: nil)?.first as? IssueCell else {
-            return IssueCell()
-        }
-        return cell
     }
 }

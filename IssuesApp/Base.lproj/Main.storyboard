@@ -19,13 +19,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ecp-Jh-uLA">
-                                <rect key="frame" x="142.5" y="48" width="89" height="46"/>
+                                <rect key="frame" x="127" y="48" width="120" height="150"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Octocat" translatesAutoresizingMaskIntoConstraints="NO" id="ocY-zx-ly7">
-                                        <rect key="frame" x="36.5" y="0.0" width="16" height="16"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vWz-0E-fEO">
-                                        <rect key="frame" x="0.0" y="16" width="89" height="30"/>
+                                        <rect key="frame" x="15.5" y="120" width="89" height="30"/>
                                         <state key="normal" title="Github 로그인"/>
                                     </button>
                                 </subviews>
@@ -124,6 +124,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aKO-Hv-LNI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="798" y="-531"/>
+        </scene>
+        <!--Comments View Controller-->
+        <scene sceneID="NJZ-gE-jef">
+            <objects>
+                <viewController storyboardIdentifier="CommentsViewController" id="FWU-rv-yIS" customClass="CommentsViewController" customModule="IssuesApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GGt-Cr-d8q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WjJ-hI-fhC">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yvd-FV-58n">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="50" height="300"/>
+                                    <size key="footerReferenceSize" width="50" height="50"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="CommentHeaderCell" id="slB-hV-gTu" customClass="CommentHeaderCell" customModule="IssuesApp" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="LoadMoreCell" id="ke0-k2-hdE" customClass="LoadMoreCell" customModule="IssuesApp" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="300" width="375" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZRF-70-A4V" firstAttribute="trailing" secondItem="WjJ-hI-fhC" secondAttribute="trailing" id="6x8-Gx-HMu"/>
+                            <constraint firstItem="WjJ-hI-fhC" firstAttribute="top" secondItem="ZRF-70-A4V" secondAttribute="top" id="SwP-JQ-IN8"/>
+                            <constraint firstItem="WjJ-hI-fhC" firstAttribute="leading" secondItem="ZRF-70-A4V" secondAttribute="leading" id="WO9-If-YNH"/>
+                            <constraint firstItem="ZRF-70-A4V" firstAttribute="bottom" secondItem="WjJ-hI-fhC" secondAttribute="bottom" id="tJW-GH-bIs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ZRF-70-A4V"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="WjJ-hI-fhC" id="Ht5-zt-d5x"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zSd-ij-GGN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1526" y="-531"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3wO-rv-IQ3">
@@ -263,7 +308,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
-                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="LoadMoreCell" id="9qc-XE-Gme" customClass="LoadMoreCell" customModule="Issues_rx" customModuleProvider="target">
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="LoadMoreCell" id="9qc-XE-Gme" customClass="LoadMoreCell" customModule="IssuesApp" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
@@ -289,6 +334,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Octocat" width="16" height="16"/>
+        <image name="Octocat" width="120" height="120"/>
     </resources>
 </document>
