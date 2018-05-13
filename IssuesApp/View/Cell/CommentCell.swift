@@ -23,7 +23,7 @@ final class CommentCell: UICollectionViewCell ,CellType {
 }
 
 extension CommentCell {
-    typealias Item = Model.Comment
+//    typealias Item = Model.Comment
     func update(data comment: Model.Comment) {
         if let url = comment.user.avatarURL {
           profileImageView.af_setImage(withURL: url)

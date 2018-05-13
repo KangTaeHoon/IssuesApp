@@ -133,7 +133,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WjJ-hI-fhC">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WjJ-hI-fhC">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yvd-FV-58n">
@@ -152,23 +152,80 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ia1-wW-Wxj">
+                                <rect key="frame" x="0.0" y="621" width="375" height="46"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OSr-lj-8BZ">
+                                        <rect key="frame" x="8" y="8" width="315" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ohb-07-lOE">
+                                        <rect key="frame" x="331" y="8" width="36" height="30"/>
+                                        <state key="normal" title="Send"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="OSr-lj-8BZ" firstAttribute="top" secondItem="Ia1-wW-Wxj" secondAttribute="top" constant="8" id="0Hf-U2-wCC"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ohb-07-lOE" secondAttribute="bottom" constant="8" id="Aay-16-1s2"/>
+                                    <constraint firstItem="Ohb-07-lOE" firstAttribute="leading" secondItem="OSr-lj-8BZ" secondAttribute="trailing" constant="8" id="EQZ-WB-e2I"/>
+                                    <constraint firstItem="Ohb-07-lOE" firstAttribute="top" secondItem="Ia1-wW-Wxj" secondAttribute="top" constant="8" id="TKu-7C-tGh"/>
+                                    <constraint firstItem="OSr-lj-8BZ" firstAttribute="leading" secondItem="Ia1-wW-Wxj" secondAttribute="leading" constant="8" id="YJv-0p-tde"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ohb-07-lOE" secondAttribute="trailing" constant="8" id="YMg-gC-SiX"/>
+                                    <constraint firstAttribute="bottom" secondItem="OSr-lj-8BZ" secondAttribute="bottom" constant="8" id="fS0-al-xvW"/>
+                                    <constraint firstAttribute="height" constant="46" id="hnf-tp-H13"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ZRF-70-A4V" firstAttribute="trailing" secondItem="WjJ-hI-fhC" secondAttribute="trailing" id="6x8-Gx-HMu"/>
                             <constraint firstItem="WjJ-hI-fhC" firstAttribute="top" secondItem="ZRF-70-A4V" secondAttribute="top" id="SwP-JQ-IN8"/>
+                            <constraint firstItem="ZRF-70-A4V" firstAttribute="bottom" secondItem="Ia1-wW-Wxj" secondAttribute="bottom" id="UGN-wW-MsU"/>
                             <constraint firstItem="WjJ-hI-fhC" firstAttribute="leading" secondItem="ZRF-70-A4V" secondAttribute="leading" id="WO9-If-YNH"/>
+                            <constraint firstItem="ZRF-70-A4V" firstAttribute="trailing" secondItem="Ia1-wW-Wxj" secondAttribute="trailing" id="gzz-j7-PHa"/>
+                            <constraint firstItem="Ia1-wW-Wxj" firstAttribute="leading" secondItem="ZRF-70-A4V" secondAttribute="leading" id="iIV-Dy-aAO"/>
                             <constraint firstItem="ZRF-70-A4V" firstAttribute="bottom" secondItem="WjJ-hI-fhC" secondAttribute="bottom" id="tJW-GH-bIs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZRF-70-A4V"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="WjJ-hI-fhC" id="Ht5-zt-d5x"/>
+                        <outlet property="commentTextField" destination="OSr-lj-8BZ" id="Bmv-JA-fvL"/>
+                        <outlet property="inputViewBottomConstraint" destination="UGN-wW-MsU" id="H1Q-zf-6z3"/>
+                        <outlet property="sendButton" destination="Ohb-07-lOE" id="sum-9z-fH4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zSd-ij-GGN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1526" y="-531"/>
+            <point key="canvasLocation" x="1525.5999999999999" y="-531.18440779610194"/>
+        </scene>
+        <!--Error View Controller-->
+        <scene sceneID="XXZ-bp-euf">
+            <objects>
+                <viewController storyboardIdentifier="ErrorViewController" id="xeQ-lm-fJL" customClass="ErrorViewController" customModule="IssuesApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OW8-Xl-BvD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HlU-QF-Okc">
+                                <rect key="frame" x="93" y="107" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="qGM-Ur-rgU"/>
+                    </view>
+                    <connections>
+                        <outlet property="button" destination="HlU-QF-Okc" id="FkC-Hm-JUa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OK8-vS-Yfd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-956" y="852"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3wO-rv-IQ3">
@@ -323,14 +380,84 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uRr-6A-pCd"/>
                     </view>
-                    <navigationItem key="navigationItem" id="2zA-IT-v5N"/>
+                    <navigationItem key="navigationItem" id="2zA-IT-v5N">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="mci-KY-lSN"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="MAx-0K-Bo0" id="88f-3u-IQ8"/>
+                        <outlet property="postIssueButton" destination="mci-KY-lSN" id="4Pa-UA-rJj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5Q-Vj-ZnM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="797.60000000000002" y="168.6656671664168"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="JUV-TD-qkK">
+            <objects>
+                <navigationController id="Itp-x8-bym" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ugr-iz-fSf">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="owU-5b-MaV" kind="relationship" relationship="rootViewController" id="G8s-Kn-8QO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5bP-gq-zqd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1526" y="179"/>
+        </scene>
+        <!--Post Issue-->
+        <scene sceneID="Doq-cO-mKN">
+            <objects>
+                <viewController storyboardIdentifier="PostIssueViewController" id="owU-5b-MaV" customClass="PostIssueViewController" customModule="IssuesApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DRl-i7-Gnk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="제목을 입력하세요." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sdz-9O-kBP">
+                                <rect key="frame" x="8" y="94" width="359" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wnq-jE-jDb">
+                                <rect key="frame" x="8" y="139" width="359" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="bLJ-AD-fix"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Wnq-jE-jDb" firstAttribute="top" secondItem="Sdz-9O-kBP" secondAttribute="bottom" constant="15" id="8gT-cQ-b8S"/>
+                            <constraint firstItem="Wnq-jE-jDb" firstAttribute="leading" secondItem="w1H-Vc-GaR" secondAttribute="leading" constant="8" id="DdU-co-n9D"/>
+                            <constraint firstItem="Sdz-9O-kBP" firstAttribute="top" secondItem="w1H-Vc-GaR" secondAttribute="top" constant="30" id="Fly-cu-QXG"/>
+                            <constraint firstItem="Sdz-9O-kBP" firstAttribute="leading" secondItem="w1H-Vc-GaR" secondAttribute="leading" constant="8" id="WZd-iG-Yev"/>
+                            <constraint firstItem="w1H-Vc-GaR" firstAttribute="trailing" secondItem="Sdz-9O-kBP" secondAttribute="trailing" constant="8" id="kyU-WK-PnJ"/>
+                            <constraint firstItem="w1H-Vc-GaR" firstAttribute="trailing" secondItem="Wnq-jE-jDb" secondAttribute="trailing" constant="8" id="s9G-XY-hRf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="w1H-Vc-GaR"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Post Issue" id="qYI-sG-vAi">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2iv-kS-fqa"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="NQd-d6-dEx"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="bodyTextView" destination="Wnq-jE-jDb" id="svV-XR-xOK"/>
+                        <outlet property="closeButton" destination="2iv-kS-fqa" id="etd-SX-Wbg"/>
+                        <outlet property="doneButton" destination="NQd-d6-dEx" id="yxO-ik-Uvz"/>
+                        <outlet property="titleTextField" destination="Sdz-9O-kBP" id="x5n-nj-eKS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pcd-dV-G3Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2316" y="179"/>
         </scene>
     </scenes>
     <resources>

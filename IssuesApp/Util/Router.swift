@@ -15,6 +15,8 @@ enum Router {
     case repoIssues(owner: String, repo: String)
     case issueComments(owner: String, repo: String, number: Int)
     case editIssue(owner: String, repo: String, number: Int)
+    case postComment(owner: String, repo: String, number: Int)
+    case postIssue(owner: String, repo: String)
 }
 
 extension Router {
@@ -29,6 +31,10 @@ extension Router {
             return "/repos/\(owner)/\(repo)/issues/\(number)/comments"
         case .editIssue(let owner, let repo, let number):
             return "/repos/\(owner)/\(repo)/issues/\(number)"
+        case .postComment(let owner, let repo, let number):
+            return "/repos/\(owner)/\(repo)/issues/\(number)/comments"
+        case .postIssue(let owner, let repo):
+            return "/repos/\(owner)/\(repo)/issues"
         }
     }
     
@@ -43,6 +49,8 @@ extension Router {
             return .get
         case .editIssue:
             return .patch
+        case .postComment, .postIssue:
+            return .post
         }
     }
     
@@ -50,7 +58,7 @@ extension Router {
         switch self {
         case .repoIssues, .issueComments:
             return URLEncoding.default
-        case .editIssue:
+        case .editIssue, .postComment, .postIssue:
             return JSONEncoding.default
         }
     }
@@ -73,8 +81,14 @@ extension Router {
                  encoding: self.parameterEncoding,
                  headers: Router.defaultHeaders)
         .validate(statusCode: 200 ..< 300)
+        .retry(2)
         .data()
         .observeOn(MainScheduler.instance)
+        .do(onError: { (error) in
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            App.delegate.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        })
     }
     
     static let manager: Alamofire.SessionManager = {

@@ -91,6 +91,28 @@ struct API {
         return Observable.just(issue)
         }
     }
+    
+    func postComment(owner: String, repo: String, number: Int, comment: String) -> Observable<Model.Comment> {
+        let parameters: Parameters = ["body": comment]
+        return Router.postComment(owner: owner, repo: repo, number: number).buildRequest(parameters: parameters)
+            .flatMap{ data -> Observable<Model.Comment> in
+                guard let comment = try? self.decoder.decode(Model.Comment.self, from: data) else {
+                    return Observable.error(RxError.unknown)
+                }
+                return Observable.just(comment)
+            }
+    }
+    
+    func postIssue(owner: String, repo: String, title: String, body: String) -> Observable<Model.Issue> {
+        let parameters: Parameters = ["title": title, "body": body]
+        return Router.postIssue(owner: owner, repo: repo).buildRequest(parameters: parameters)
+            .flatMap{ data -> Observable<Model.Issue> in
+                guard let issue = try? self.decoder.decode(Model.Issue.self, from: data) else {
+                    return Observable.error(RxError.unknown)
+                }
+            return Observable.just(issue)
+        }
+    }
 
  
 }

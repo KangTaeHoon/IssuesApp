@@ -65,6 +65,10 @@ extension Model.Issue {
     func update(state: Model.Issue.State) -> Model.Issue {
         return Model.Issue(id: self.id, number: self.number, title: self.title, user: self.user, state: state, comments: self.comments, body: self.body, createdAt: self.createdAt)
     }
+    
+    func update(commentsCount: Int) -> Model.Issue {
+        return Model.Issue(id: self.id, number: self.number, title: self.title, user: self.user, state: state, comments: commentsCount, body: self.body, createdAt: self.createdAt)
+    }
 }
 
 extension Model.Issue.State {

@@ -23,6 +23,9 @@ class CommentHeaderCell: UICollectionReusableView {
     @IBOutlet weak var commentInfoLabel: UILabel!
     @IBOutlet weak var commentBodyLabel: UILabel!
     
+    var stateButtonTappedSubject: PublishSubject<Void>?
+    var disposeBag = DisposeBag()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()
@@ -78,7 +81,12 @@ extension CommentHeaderCell {
         commentContainerView.layer.borderColor = UIColor.groupTableViewBackground.cgColor
         commentContainerView.layer.borderWidth = 1
         
+        stateButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+            self?.stateButtonTappedSubject?.onNext(())
+        }).disposed(by: disposeBag)
     }
+    
     static func headerSize(issue: Model.Issue, width: CGFloat) -> CGSize {
         
         CommentHeaderCell.estimateSizeCell.update(data: issue)

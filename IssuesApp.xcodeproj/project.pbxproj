@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0677173E20A6CD3500ED1270 /* ModelViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677173D20A6CD3500ED1270 /* ModelViewControllerType.swift */; };
+		0677174020A6CF3400ED1270 /* PostIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677173F20A6CF3400ED1270 /* PostIssueViewController.swift */; };
+		0677174220A6DB5700ED1270 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677174120A6DB5700ED1270 /* ErrorViewController.swift */; };
 		06873674208B7F3200DBE40D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06873673208B7F3200DBE40D /* AppDelegate.swift */; };
 		06873676208B7F3200DBE40D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06873675208B7F3200DBE40D /* ViewController.swift */; };
 		06873679208B7F3200DBE40D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06873677208B7F3200DBE40D /* Main.storyboard */; };
@@ -62,6 +65,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0677173D20A6CD3500ED1270 /* ModelViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelViewControllerType.swift; sourceTree = "<group>"; };
+		0677173F20A6CF3400ED1270 /* PostIssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostIssueViewController.swift; sourceTree = "<group>"; };
+		0677174120A6DB5700ED1270 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		06873670208B7F3200DBE40D /* IssuesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IssuesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06873673208B7F3200DBE40D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		06873675208B7F3200DBE40D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -200,11 +206,14 @@
 			children = (
 				068736A2208B7FD900DBE40D /* Cell */,
 				068736AE208B7FF100DBE40D /* HistoryViewController.swift */,
+				0677173D20A6CD3500ED1270 /* ModelViewControllerType.swift */,
+				0677173F20A6CF3400ED1270 /* PostIssueViewController.swift */,
 				068736AC208B7FF100DBE40D /* IssuesViewController.swift */,
 				06C51F91209468990026B8F4 /* CommentsViewController.swift */,
 				06C51F8F209455C30026B8F4 /* LoadMoreViewControllerType.swift */,
 				068736AD208B7FF100DBE40D /* LoginViewController.swift */,
 				068736AB208B7FF000DBE40D /* RepoViewController.swift */,
+				0677174120A6DB5700ED1270 /* ErrorViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -523,11 +532,14 @@
 				068736BD208B803800DBE40D /* PreferenceManager.swift in Sources */,
 				068894F620942CCD00E7966E /* CommentCell.swift in Sources */,
 				06C51F90209455C30026B8F4 /* LoadMoreViewControllerType.swift in Sources */,
+				0677174020A6CF3400ED1270 /* PostIssueViewController.swift in Sources */,
 				068736BC208B803800DBE40D /* ViewControlelrFromStoryBoard.swift in Sources */,
+				0677174220A6DB5700ED1270 /* ErrorViewController.swift in Sources */,
 				06C51F92209468990026B8F4 /* CommentsViewController.swift in Sources */,
 				06873674208B7F3200DBE40D /* AppDelegate.swift in Sources */,
 				068736AF208B7FF100DBE40D /* RepoViewController.swift in Sources */,
 				068736C0208B803800DBE40D /* Router.swift in Sources */,
+				0677173E20A6CD3500ED1270 /* ModelViewControllerType.swift in Sources */,
 				068894FC20942CD600E7966E /* Encodable+extension.swift in Sources */,
 				068736A7208B7FE700DBE40D /* IssueCell.swift in Sources */,
 				068736BE208B803800DBE40D /* API.swift in Sources */,
@@ -709,7 +721,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V53Z7HF8ZQ;
 				INFOPLIST_FILE = IssuesApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -729,7 +741,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V53Z7HF8ZQ;
 				INFOPLIST_FILE = IssuesApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

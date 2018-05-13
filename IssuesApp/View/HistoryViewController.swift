@@ -10,8 +10,12 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class HistoryViewController: UIViewController,
-                             ViewControllerFromStoryBoard {
+class HistoryViewController: UIViewController, ModelViewControllerType {
+    
+    
+    typealias ReturnType = Repo
+    
+    
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var closeButton: UIBarButtonItem!
   var disposeBag: DisposeBag = DisposeBag()
@@ -22,6 +26,12 @@ class HistoryViewController: UIViewController,
         self.navigationController?.navigationBar.tintColor = UIColor(red:0.89, green:0.89, blue:0.89, alpha:1.00)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red:0.89, green:0.89, blue:0.89, alpha:1.00)]
         bind()
+    }
+    
+    func returnObservable() -> Observable<Repo> {
+        return tableView.rx.itemSelected.map { indexPath -> Repo in
+            return App.preferenceManager.history.repos[indexPath.row]
+        }
     }
 }
 
@@ -35,41 +45,6 @@ extension HistoryViewController {
     }
 }
 
-extension Reactive where Base: HistoryViewController {
-    
-    var selectedRepo: Observable<Repo> {
-        return base.tableView.rx.itemSelected.map { indexPath -> Repo in
-            return App.preferenceManager.history.repos[indexPath.row]
-        }
-    }
-    
-    fileprivate static func create(parent: UIViewController?, animated: Bool = true) -> Observable<HistoryViewController> {
-        
-        return Observable<HistoryViewController>.create{ (observer) -> Disposable in
-            let viewController = HistoryViewController.viewController
-            let dismissDisposable = viewController.closeButton.rx.tap.subscribe(onNext: { [weak viewController] _ in
-                viewController?.dismiss(animated: animated, completion: nil)
-            })
-            
-            parent?.present(viewController.wrapNavigationController, animated: animated, completion: { [weak viewController] in
-                guard let viewController = viewController else {
-                    observer.onError(RxCocoaError.unknown)
-                    return}
-                observer.onNext(viewController) //vc를 보내는 시점에 없을수가 있음. 그래서 [weak viewController]
-            })
-            return Disposables.create([dismissDisposable, Disposables.create{ viewController.dismiss(animated: animated, completion: nil)
-            }])
-        }
-    }
-    
-    static func create(parent: UIViewController?, animated: Bool = true) -> Observable<Repo> {
-        return self.create(parent: parent, animated: animated).flatMap{ (viewController: HistoryViewController) -> Observable<Repo> in
-            viewController.rx.selectedRepo
-        }.take(1)
-    }
-    
-    
-}
 
 
 

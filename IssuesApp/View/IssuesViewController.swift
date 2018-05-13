@@ -24,8 +24,9 @@ final class IssuesViewController: UIViewController, ViewControllerFromStoryBoard
     var refreshControl = UIRefreshControl()
     var nextPageID: BehaviorRelay<Int> = BehaviorRelay(value: 1)
     var canLoadMore: BehaviorRelay<Bool> = BehaviorRelay(value: true) //처음에는 더 부를수 있는 상태여야하니까 트루
-    var isLoading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     var loadMoreCell: LoadMoreCell? //처음엔 없음
+    var issueModifiedSubject: PublishSubject<Model.Issue> = PublishSubject()
+    @IBOutlet weak var postIssueButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,12 +74,37 @@ extension IssuesViewController {
         }).disposed(by: disposeBag)
 //        canLoadMore.bind(to: loadMoreCell.rx.load) 옵셔널인 경우는 이게안됨.
         
+        issueModifiedSubject.withLatestFrom(datasourceOut) { ($0, $1) }
+            .flatMap{ (issue, issues) -> Observable<[Model.Issue]> in
+                guard let index: Int = issues.index(of: issue) else {return Observable.empty()}
+                var issues = issues //변경할수 있는 어레이로 바꾼다
+                issues[index] = issue
+                return Observable.just(issues)
+        }.bind(to: datasourceOut).disposed(by: disposeBag)
+        
         collectionView.rx.itemSelected.asObservable().subscribe(onNext: { [weak self] indexPath in
             guard let `self` = self else { return }
             let issue = self.datasourceOut.value[indexPath.item]
             let viewController = CommentsViewController.viewController(owner: self.owner, repo: self.repo, issue: issue)
+            viewController.parentViewReload = self.issueModifiedSubject
             self.navigationController?.pushViewController(viewController, animated: true)
         }).disposed(by: disposeBag)
+        
+        
+        postIssueButton.rx.tap.flatMap { [weak self] _ -> Observable<(String, String)> in
+            return PostIssueViewController.rx.create(parent: self)
+            
+            }.flatMapFirst { [weak self] strings -> Observable<(Model.Issue)> in
+                guard let `self` = self else { return Observable.empty() }
+                let (title, body) = strings
+                return App.api.postIssue(owner: self.owner, repo: self.repo, title: title, body: body)
+            .retry()
+            }.subscribe(onNext: { [weak self] issue in
+                guard let `self` = self else {return}
+                var datasource = self.datasourceOut.value
+                datasource.insert(issue, at: 0)
+                self.datasourceOut.accept(datasource)
+            }).disposed(by: disposeBag)
     }
 }
 

@@ -24,7 +24,6 @@ protocol LoadMoreViewControllerType: class, ReactiveCompatible {
     var refreshControl : UIRefreshControl { get set }
     var nextPageID: BehaviorRelay<Int> { get set }
     var canLoadMore: BehaviorRelay<Bool> { get set }
-    var isLoading: BehaviorRelay<Bool> { get set }
     var loadMoreCell: LoadMoreCell? { get set }
     
     func apiCall(api: (APIParameter) -> Observable<[Cell.Item]>) -> Observable<[Cell.Item]>
@@ -97,10 +96,15 @@ extension LoadMoreViewControllerType {
             else { return datasources }
         }
         
-        datasourceIn.flatMap { [weak self] api -> Observable<[Cell.Item]> in
+        datasourceIn.flatMapFirst { [weak self] api -> Observable<[Cell.Item]> in
             guard let `self` = self else {return Observable.empty()}
             return self.apiCall(api: api)
-            
+            .do(onNext: { [weak self] _ in
+                self?.refreshControl.endRefreshing()
+                }, onError: { [weak self] _ in
+                    self?.refreshControl.endRefreshing()
+            })
+            .retry()
             }.do(onNext: { [weak self] (models) in
                 guard models.isEmpty else {return} //empty가 아니면 아무짓도 할 필요가 없다.
                 self?.canLoadMore.accept(false)
@@ -114,13 +118,7 @@ extension LoadMoreViewControllerType {
     func datasourceOutBindtoCollectionView() {
         
         datasourceOut
-            .do(onNext: { [weak self] _ in
-                self?.refreshControl.endRefreshing()
-                self?.isLoading.accept(false)
-                }, onError: { [weak self] _ in
-                    self?.refreshControl.endRefreshing()
-                    self?.isLoading.accept(false)
-            }).map{
+            .map{
                 [SectionModel<Int, Cell.Item>(model: 0, items: $0)]
             }.bind(to: collectionView.rx.items(dataSource: createDatasource()))
             .disposed(by: disposeBag)
@@ -129,8 +127,6 @@ extension LoadMoreViewControllerType {
     func register(refreshControl: UIRefreshControl) {
         
         refreshControl.rx.controlEvent(.valueChanged)
-            .withLatestFrom(isLoading)
-            .filter{ !$0 } //isLoading == false
             .map { _ in return () }
             .bind(to: rx.refresh)
             .disposed(by: disposeBag)
@@ -145,8 +141,6 @@ extension LoadMoreViewControllerType {
                 return indexPath.item == datasources.count-1
             }.withLatestFrom(canLoadMore) //true인 경우에만 뒤로 넘겨준다.
             .filter{ $0 }
-            .withLatestFrom(isLoading)
-            .filter{ !$0 }
             .map { _ in return () }
             .bind(to: rx.loadMore).disposed(by: disposeBag)
     }
@@ -155,7 +149,6 @@ extension LoadMoreViewControllerType {
 extension Reactive where Base: LoadMoreViewControllerType{
     var refresh: Binder<Void> {
         return Binder(base) { viewController, _ in
-            viewController.isLoading.accept(true)
             viewController.nextPageID.accept(1)
             viewController.canLoadMore.accept(true)
         }
@@ -163,7 +156,6 @@ extension Reactive where Base: LoadMoreViewControllerType{
     
     var loadMore: Binder<Void> {
         return Binder(base) { ViewController, _ in
-            ViewController.isLoading.accept(true)
             let pageID = ViewController.nextPageID.value
             ViewController.nextPageID.accept(pageID + 1)
         }
