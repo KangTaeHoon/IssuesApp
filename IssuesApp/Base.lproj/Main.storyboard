@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WjN-Jz-dnh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XqI-2v-cyZ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -201,31 +200,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zSd-ij-GGN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1525.5999999999999" y="-531.18440779610194"/>
-        </scene>
-        <!--Error View Controller-->
-        <scene sceneID="XXZ-bp-euf">
-            <objects>
-                <viewController storyboardIdentifier="ErrorViewController" id="xeQ-lm-fJL" customClass="ErrorViewController" customModule="IssuesApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="OW8-Xl-BvD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HlU-QF-Okc">
-                                <rect key="frame" x="93" y="107" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="qGM-Ur-rgU"/>
-                    </view>
-                    <connections>
-                        <outlet property="button" destination="HlU-QF-Okc" id="FkC-Hm-JUa"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OK8-vS-Yfd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-956" y="852"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3wO-rv-IQ3">
@@ -458,6 +432,76 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pcd-dV-G3Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2316" y="179"/>
+        </scene>
+        <!--Error View Controller-->
+        <scene sceneID="puw-Eu-i5W">
+            <objects>
+                <viewController storyboardIdentifier="ErrorViewController" id="XqI-2v-cyZ" customClass="ErrorViewController" customModule="IssuesApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lQ8-b9-8PZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hg-Qn-dYY">
+                                <rect key="frame" x="25" y="50" width="82" height="30"/>
+                                <state key="normal" title="정상적인 경우"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gmY-6G-lqf">
+                                <rect key="frame" x="25" y="100" width="99" height="30"/>
+                                <state key="normal" title="에러가 나는 경우"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jdc-bv-0Gh">
+                                <rect key="frame" x="25" y="150" width="162" height="30"/>
+                                <state key="normal" title="에러 Observable에 Retry"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mws-MA-yZd">
+                                <rect key="frame" x="25" y="200" width="162" height="30"/>
+                                <state key="normal" title="전체 Observable에 Retry"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7XB-04-onT">
+                                <rect key="frame" x="25" y="250" width="138" height="30"/>
+                                <state key="normal" title="에러가 났으면 알럿으로"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTz-7H-y7s">
+                                <rect key="frame" x="25" y="300" width="157" height="30"/>
+                                <state key="normal" title="Error를 이벤트로 보내기 1"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JXH-Kv-mfU">
+                                <rect key="frame" x="25" y="350" width="159" height="30"/>
+                                <state key="normal" title="Error를 이벤트로 보내기 2"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gmY-6G-lqf" firstAttribute="top" secondItem="0hg-Qn-dYY" secondAttribute="bottom" constant="20" id="1sR-cu-Ko7"/>
+                            <constraint firstItem="tTz-7H-y7s" firstAttribute="leading" secondItem="7XB-04-onT" secondAttribute="leading" id="97N-2T-QWk"/>
+                            <constraint firstItem="mws-MA-yZd" firstAttribute="top" secondItem="jdc-bv-0Gh" secondAttribute="bottom" constant="20" id="D8e-4K-coM"/>
+                            <constraint firstItem="0hg-Qn-dYY" firstAttribute="top" secondItem="Hlr-DK-jDH" secondAttribute="top" constant="30" id="GYX-au-l4J"/>
+                            <constraint firstItem="mws-MA-yZd" firstAttribute="leading" secondItem="jdc-bv-0Gh" secondAttribute="leading" id="Iz6-B0-NJv"/>
+                            <constraint firstItem="jdc-bv-0Gh" firstAttribute="top" secondItem="gmY-6G-lqf" secondAttribute="bottom" constant="20" id="KVv-iL-Qd6"/>
+                            <constraint firstItem="jdc-bv-0Gh" firstAttribute="leading" secondItem="gmY-6G-lqf" secondAttribute="leading" id="OZA-rj-edN"/>
+                            <constraint firstItem="gmY-6G-lqf" firstAttribute="leading" secondItem="0hg-Qn-dYY" secondAttribute="leading" id="TRQ-Xu-ubc"/>
+                            <constraint firstItem="7XB-04-onT" firstAttribute="top" secondItem="mws-MA-yZd" secondAttribute="bottom" constant="20" id="dH9-Ec-9ZJ"/>
+                            <constraint firstItem="0hg-Qn-dYY" firstAttribute="leading" secondItem="Hlr-DK-jDH" secondAttribute="leading" constant="25" id="ddI-Yc-I7V"/>
+                            <constraint firstItem="tTz-7H-y7s" firstAttribute="top" secondItem="7XB-04-onT" secondAttribute="bottom" constant="20" id="kga-MR-N95"/>
+                            <constraint firstItem="JXH-Kv-mfU" firstAttribute="leading" secondItem="tTz-7H-y7s" secondAttribute="leading" id="oZN-Jb-1Sk"/>
+                            <constraint firstItem="7XB-04-onT" firstAttribute="leading" secondItem="mws-MA-yZd" secondAttribute="leading" id="rw4-Iw-OfE"/>
+                            <constraint firstItem="JXH-Kv-mfU" firstAttribute="top" secondItem="tTz-7H-y7s" secondAttribute="bottom" constant="20" id="tPf-84-D8x"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Hlr-DK-jDH"/>
+                    </view>
+                    <connections>
+                        <outlet property="button" destination="0hg-Qn-dYY" id="10h-sX-iQi"/>
+                        <outlet property="button2" destination="gmY-6G-lqf" id="oR8-BS-0KI"/>
+                        <outlet property="button3" destination="jdc-bv-0Gh" id="Rmy-u2-L9q"/>
+                        <outlet property="button4" destination="mws-MA-yZd" id="2Uk-ai-bxH"/>
+                        <outlet property="button5" destination="7XB-04-onT" id="Dve-g2-8gl"/>
+                        <outlet property="button6" destination="tTz-7H-y7s" id="lpS-wd-VTz"/>
+                        <outlet property="button7" destination="JXH-Kv-mfU" id="gjk-K6-ZbA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rQq-xk-tgO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-956" y="852"/>
         </scene>
     </scenes>
     <resources>
